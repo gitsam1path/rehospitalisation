@@ -1,0 +1,208 @@
+{
+  "donnees": {
+    "sejours": 71515,
+    "taux_rehospitalisation_pct": 8.8,
+    "entrainement": 53636,
+    "test": 17879,
+    "variables": [
+      "age",
+      "duree_sejour_jours",
+      "sejours_annee_precedente",
+      "nb_diagnostics",
+      "nb_actes",
+      "nb_medicaments",
+      "mode_admission",
+      "glycemie",
+      "assurance"
+    ],
+    "variables_exclues_du_modele": [
+      "origine",
+      "sexe"
+    ]
+  },
+  "modele_retenu": "LightGBM",
+  "raison": "meilleur ROC AUC en validation croisée",
+  "resultats": [
+    {
+      "modele": "LightGBM",
+      "cv_roc_auc": 0.6004,
+      "cv_pr_auc": 0.1226,
+      "cv_brier": 0.0795,
+      "test_roc_auc": 0.608,
+      "test_pr_auc": 0.1271,
+      "test_brier": 0.0793,
+      "test_rappel_top10_pct": 17.3554
+    },
+    {
+      "modele": "Forêt aléatoire",
+      "cv_roc_auc": 0.5952,
+      "cv_pr_auc": 0.121,
+      "cv_brier": 0.0795,
+      "test_roc_auc": 0.6033,
+      "test_pr_auc": 0.1241,
+      "test_brier": 0.0794,
+      "test_rappel_top10_pct": 17.0375
+    },
+    {
+      "modele": "Régression logistique",
+      "cv_roc_auc": 0.5951,
+      "cv_pr_auc": 0.1194,
+      "cv_brier": 0.0797,
+      "test_roc_auc": 0.5946,
+      "test_pr_auc": 0.1187,
+      "test_brier": 0.0798,
+      "test_rappel_top10_pct": 15.3846
+    },
+    {
+      "modele": "Arbre de décision",
+      "cv_roc_auc": 0.5847,
+      "cv_pr_auc": 0.117,
+      "cv_brier": 0.0797,
+      "test_roc_auc": 0.5943,
+      "test_pr_auc": 0.1176,
+      "test_brier": 0.0795,
+      "test_rappel_top10_pct": 15.5753
+    },
+    {
+      "modele": "Référence (taux moyen)",
+      "cv_roc_auc": 0.5,
+      "cv_pr_auc": 0.088,
+      "cv_brier": 0.0803,
+      "test_roc_auc": 0.5,
+      "test_pr_auc": 0.088,
+      "test_brier": 0.0802,
+      "test_rappel_top10_pct": 10.1716
+    }
+  ],
+  "calibration_brier": {
+    "brut": 0.07927,
+    "calibre": 0.07931
+  },
+  "decision_selon_capacite": {
+    "5 %": {
+      "patients_suivis": 894,
+      "rehospitalisations_ciblees": 155,
+      "rappel_pct": 9.85,
+      "precision_pct": 17.34,
+      "lift": 1.97
+    },
+    "10 %": {
+      "patients_suivis": 1788,
+      "rehospitalisations_ciblees": 272,
+      "rappel_pct": 17.29,
+      "precision_pct": 15.21,
+      "lift": 1.73
+    },
+    "20 %": {
+      "patients_suivis": 3576,
+      "rehospitalisations_ciblees": 473,
+      "rappel_pct": 30.07,
+      "precision_pct": 13.23,
+      "lift": 1.5
+    },
+    "30 %": {
+      "patients_suivis": 5364,
+      "rehospitalisations_ciblees": 666,
+      "rappel_pct": 42.34,
+      "precision_pct": 12.42,
+      "lift": 1.41
+    }
+  },
+  "audit_equite": {
+    "origine": {
+      "Afro-américain": {
+        "patients": 3294.0,
+        "taux_reel_pct": 8.65,
+        "risque_moyen_predit_pct": 8.37,
+        "part_selectionnee_pct": 8.44,
+        "rappel_pct": 16.49,
+        "auc": 0.59
+      },
+      "Asiatique": {
+        "patients": 134.0,
+        "taux_reel_pct": 8.96,
+        "risque_moyen_predit_pct": 8.4,
+        "part_selectionnee_pct": 9.7,
+        "rappel_pct": 16.67,
+        "auc": null
+      },
+      "Autre": {
+        "patients": 281.0,
+        "taux_reel_pct": 6.05,
+        "risque_moyen_predit_pct": 8.18,
+        "part_selectionnee_pct": 4.63,
+        "rappel_pct": 5.88,
+        "auc": 0.64
+      },
+      "Blanc": {
+        "patients": 13297.0,
+        "taux_reel_pct": 8.93,
+        "risque_moyen_predit_pct": 8.92,
+        "part_selectionnee_pct": 10.6,
+        "rappel_pct": 18.03,
+        "auc": 0.61
+      },
+      "Hispanique": {
+        "patients": 404.0,
+        "taux_reel_pct": 9.16,
+        "risque_moyen_predit_pct": 8.36,
+        "part_selectionnee_pct": 11.14,
+        "rappel_pct": 13.51,
+        "auc": 0.61
+      },
+      "Inconnu": {
+        "patients": 469.0,
+        "taux_reel_pct": 7.46,
+        "risque_moyen_predit_pct": 8.01,
+        "part_selectionnee_pct": 6.4,
+        "rappel_pct": 8.57,
+        "auc": 0.58
+      }
+    },
+    "sexe": {
+      "Femme": {
+        "patients": 9513.0,
+        "taux_reel_pct": 9.13,
+        "risque_moyen_predit_pct": 8.97,
+        "part_selectionnee_pct": 11.0,
+        "rappel_pct": 18.53,
+        "auc": 0.61
+      },
+      "Homme": {
+        "patients": 8366.0,
+        "taux_reel_pct": 8.42,
+        "risque_moyen_predit_pct": 8.54,
+        "part_selectionnee_pct": 8.87,
+        "rappel_pct": 15.77,
+        "auc": 0.6
+      }
+    }
+  },
+  "importance": {
+    "sejours_annee_precedente": 0.0354,
+    "duree_sejour_jours": 0.0249,
+    "age": 0.0152,
+    "assurance": 0.014,
+    "nb_medicaments": 0.0094,
+    "nb_diagnostics": 0.0069,
+    "nb_actes": 0.0039,
+    "mode_admission": 0.0025,
+    "glycemie": 0.0001
+  },
+  "rapports_de_cotes": {
+    "+1 séjour l'année précédente": 1.109,
+    "+1 diagnostic": 1.037,
+    "+1 jour d'hospitalisation": 1.042,
+    "+5 médicaments": 1.032,
+    "+10 ans": 1.078,
+    "mode_admission : Autre (vs Adressé par un médecin)": 0.849,
+    "mode_admission : Urgences (vs Adressé par un médecin)": 0.994,
+    "glycemie : Normale (vs Non mesurée)": 0.916,
+    "glycemie : Très élevée (vs Non mesurée)": 0.935,
+    "glycemie : Élevée (vs Non mesurée)": 0.949,
+    "assurance : Medicaid (public, bas revenus) (vs Privée)": 1.266,
+    "assurance : Medicare (public, +65 ans) (vs Privée)": 1.161,
+    "assurance : Non renseignée (vs Privée)": 1.434,
+    "assurance : Sans assurance (vs Privée)": 1.17
+  }
+}
